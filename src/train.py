@@ -100,6 +100,8 @@ def train(
                     device,
                     best_loss
                 )
+                generator.train()
+                discriminator.train()
 
         scheduler_gen.step()
         scheduler_discr.step()
@@ -118,6 +120,8 @@ def evaluate(
     best_loss,
     exp_name
 ):
+    generator.eval()
+    discriminator.eval()
     with torch.no_grad():
         global_loss = 0.
         for i, (waveform, melspec, melspec_for_loss) in enumerate(tqdm(val_loader)):
