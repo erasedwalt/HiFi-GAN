@@ -92,13 +92,14 @@ def train(
                 best_loss = evaluate(
                     generator,
                     discriminator,
-                    optimizer_gen.
+                    optimizer_gen,
                     optimizer_discr,
                     val_loader,
                     melspec_computer,
                     logger,
                     device,
-                    best_loss
+                    best_loss,
+                    exp_name
                 )
                 generator.train()
                 discriminator.train()
