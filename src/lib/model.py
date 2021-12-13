@@ -157,6 +157,7 @@ class PeriodDiscriminator(nn.Module):
                         in_channels=1 if i == 0 else CHANNELS[i - 1],
                         out_channels=CHANNELS[i],
                         kernel_size=(5, 1),
+                        stride=(3, 1),
                         padding=(calc_padding(5, 1), 0)
                     )
                 ),
@@ -204,6 +205,8 @@ class ScaleDiscriminator(nn.Module):
         CHANNELS = [128, 128, 256, 512, 1024, 1024, 1024]
         GROUPS = [1, 4, 16, 16, 16, 16, 1]
         KERNEL_SIZES = [15, 41, 41, 41, 41, 41, 5]
+        STRIDES = [1, 2, 2, 4, 4, 1, 1]
+
 
         self.C = nn.ModuleList([
             nn.Sequential(
@@ -212,6 +215,7 @@ class ScaleDiscriminator(nn.Module):
                         in_channels=1 if i == 0 else CHANNELS[i - 1],
                         out_channels=CHANNELS[i],
                         kernel_size=KERNEL_SIZES[i],
+                        stride=STRIDES[i],
                         padding=KERNEL_SIZES[i] // 2,
                         groups=GROUPS[i]
                     )
