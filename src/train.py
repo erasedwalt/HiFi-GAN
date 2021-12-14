@@ -167,7 +167,7 @@ def evaluate(
             logger.log_metrics(to_log)
         else:
             print(to_log)
-    return global_loss
+    return best_loss
 
 
 def _parse_args():
