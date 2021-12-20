@@ -54,11 +54,11 @@ def train(
             # Discriminator part
             loss_discr = criterion_discr.forward(preds_generated, preds_true)
             loss_discr.backward()
-            grad_discr = torch.nn.utils.clip_grad_norm_(discriminator.parameters(), clip)
+            # grad_discr = torch.nn.utils.clip_grad_norm_(discriminator.parameters(), clip)
             optimizer_discr.step()
 
             preds_generated, preds_true, fmaps_generated, fmaps_true = \
-                discriminator(gen_waveform.detach(), waveform[:, None, :])
+                discriminator(gen_waveform, waveform[:, None, :])
             gen_melspec = melspec_computer(gen_waveform.squeeze(1))
 
             # Generator part
@@ -71,7 +71,7 @@ def train(
             )
 
             loss_gen.backward()
-            grad_gen = torch.nn.utils.clip_grad_norm_(generator.parameters(), clip)
+            # grad_gen = torch.nn.utils.clip_grad_norm_(generator.parameters(), clip)
             optimizer_gen.step()
             global_steps += 1
 
@@ -79,8 +79,8 @@ def train(
 
             to_log = {'Train Gen Loss': loss_gen.item(),
                       'Train Discr Loss': loss_discr.item(),
-                      'Grad Discr': grad_discr.item(),
-                      'Grad Gen': grad_gen.item(),
+                      # 'Grad Discr': grad_discr.item(),
+                      # 'Grad Gen': grad_gen.item(),
                       'LR': lr}
 
             if logger is None:
